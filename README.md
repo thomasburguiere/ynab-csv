@@ -3,18 +3,6 @@
 
 Tool for making your CSV files ready to import into YNAB.
 
-http://aniav.github.io/ynab-csv/
-
-**NOTE:** currently works best in Chrome. See "Known Issues" below for more details.
-
-
-## How to Use
-
-1. Visit the link above.
-2. Drop or select the the csv file you want to make ready for YNAB.
-3. For each column in the YNAB data file, choose which column you want to pull from your source data file.
-4. Save the new YNAB file and you are ready to import that right into YNAB!
-
 ## Multiple Profiles
 
 `ynab-csv` stores your settings in the browser under a profile named `default`. Each time you change your column mapping or other
