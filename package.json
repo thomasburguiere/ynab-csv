@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/aniav/ynab-csv",
   "devDependencies": {
-    "browser-sync": "^2.26.7"
+    "browser-sync": "^3.0.0"
   }
 }
