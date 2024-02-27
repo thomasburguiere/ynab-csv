@@ -13,8 +13,8 @@ window.DataObject = class DataObject {
       header: true,
       skipEmptyLines: true,
       beforeFirstChunk: function(chunk) {
-        var rows = chunk.split("\n");
-        var startIndex = startAtRow - 1;
+        let rows = chunk.split("\n");
+        const startIndex = startAtRow - 1;
         rows = rows.slice(startIndex);
 
         if (extraRow) {
@@ -45,7 +45,7 @@ window.DataObject = class DataObject {
       config.delimiter = delimiter
     }
 
-    var result = Papa.parse(csv, config);
+    const result = Papa.parse(csv, config);
 
     return (this.base_json = result);
   }
@@ -68,7 +68,7 @@ window.DataObject = class DataObject {
   //     convert the uploaded CSV file into the columns that YNAB expects.
   // inverted_outflow: if true, positive values represent outflow while negative values represent inflow
   converted_json(limit, ynab_cols, lookup, inverted_outflow = false) {
-    var value;
+    let value;
     if (this.base_json === null) {
       return null;
     }
@@ -76,11 +76,11 @@ window.DataObject = class DataObject {
     // TODO: You might want to check for errors. Papaparse has an errors field.
     if (this.base_json.data) {
       this.base_json.data.forEach(function (row, index) {
-        var tmp_row;
+        let tmp_row;
         if (!limit || index < limit) {
           tmp_row = {};
           ynab_cols.forEach(function (col) {
-            var cell;
+            let cell;
             cell = row[lookup[col]];
             // Some YNAB columns need special formatting,
             //   the rest are just returned as they are.
@@ -122,17 +122,17 @@ window.DataObject = class DataObject {
   }
 
   converted_csv(limit, ynab_cols, lookup, inverted_outflow) {
-    var string;
+    let string;
     if (this.base_json === null) {
       return nil;
     }
     // Papa.unparse string
     string = '"' + ynab_cols.join('","') + '"\n';
     this.converted_json(limit, ynab_cols, lookup, inverted_outflow).forEach(function (row) {
-      var row_values;
+      let row_values;
       row_values = [];
       ynab_cols.forEach(function (col) {
-        var row_value;
+        let row_value;
         row_value = row[col] || "";
         // escape text which might already have a quote in it
         row_value = row_value.replace(/"/g, '""').trim();

@@ -1,6 +1,6 @@
 // see http://stackoverflow.com/questions/2897619/using-html5-javascript-to-generate-and-save-a-file
 // see http://stackoverflow.com/questions/18662404/download-lengthy-data-as-a-csv-file
-var encodings = [
+const encodings = [
   "UTF-8", "IBM866", "ISO-8859-1", "ISO-8859-2", "ISO-8859-3", "ISO-8859-4", "ISO-8859-5",
   "ISO-8859-6", "ISO-8859-7", "ISO-8859-8", "ISO-8859-8-I", "ISO-8859-10",
   "ISO-8859-13", "ISO-8859-14", "ISO-8859-15", "ISO-8859-16", "KOI8-R",
@@ -9,16 +9,16 @@ var encodings = [
   "windows-1256", "windows-1257", "windows-1258", "x-mac-cyrillic", "GBK",
   "gb18030", "Big5", "EUC-JP", "ISO-2022-JP", "Shift_JIS", "EUC-KR",
   "replacement", "UTF-16BE", "UTF-16LE", "x-user-defined"
-]
-var delimiters = [
+];
+const delimiters = [
   "auto",
   ",",
   ";",
   "|"
-]
-var old_ynab_cols = ["Date", "Payee", "Memo", "Outflow", "Inflow"];
-var new_ynab_cols = ["Date", "Payee", "Memo", "Amount"];
-var defaultProfile = {
+];
+const old_ynab_cols = ["Date", "Payee", "Memo", "Outflow", "Inflow"];
+const new_ynab_cols = ["Date", "Payee", "Memo", "Amount"];
+const defaultProfile = {
   columnFormat: old_ynab_cols,
   chosenColumns: old_ynab_cols.reduce(function (acc, val) {
     acc[val] = val;
@@ -29,13 +29,13 @@ var defaultProfile = {
   startAtRow: 1,
   extraRow: false
 };
-var defaultProfiles = {
+const defaultProfiles = {
   "default profile": defaultProfile
 };
 
 Date.prototype.yyyymmdd = function () {
-  var mm = this.getMonth() + 1; // getMonth() is zero-based
-  var dd = this.getDate();
+  const mm = this.getMonth() + 1; // getMonth() is zero-based
+  const dd = this.getDate();
 
   return [this.getFullYear(),
     (mm > 9 ? '' : '0') + mm,
@@ -53,7 +53,7 @@ angular.element(document).ready(function () {
         },
         link: function (scope, element, attributes) {
           return element.bind("change", function (changeEvent) {
-            var reader;
+            let reader;
             reader = new FileReader();
             reader.onload = function (loadEvent) {
               return scope.$apply(function () {
@@ -81,11 +81,11 @@ angular.element(document).ready(function () {
             event.preventDefault();
           });
           element.bind("dragover", function (event) {
-            var efct;
+            let efct;
             element.addClass("dragging");
             event.preventDefault();
             event.stopPropagation();
-            var dataTransfer;
+            let dataTransfer;
             dataTransfer = (event.dataTransfer || event.originalEvent.dataTransfer)
             efct = dataTransfer.effectAllowed;
             dataTransfer.dropEffect =
@@ -96,7 +96,7 @@ angular.element(document).ready(function () {
             event.preventDefault();
           });
           element.bind("drop", function (event) {
-            var reader;
+            let reader;
             element.removeClass("dragging");
             event.preventDefault();
             event.stopPropagation();
@@ -110,8 +110,8 @@ angular.element(document).ready(function () {
             reader.readAsText(file, attributes.encoding);
           });
           element.bind("paste", function (event) {
-            var items = (event.clipboardData || event.originalEvent.clipboardData).items;
-            for (var i = 0; i < items.length; i++) {
+            const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            for (let i = 0; i < items.length; i++) {
               if (items[i].type == 'text/plain') {
                 data = items[i];
                 break;
@@ -232,8 +232,8 @@ angular.element(document).ready(function () {
       $scope.inverted_outflow = !$scope.inverted_outflow;
     }
     $scope.downloadFile = function () {
-      var a;
-      var date = new Date();
+      let a;
+      const date = new Date();
       a = document.createElement("a");
       a.href =
         "data:attachment/csv;base64," +
